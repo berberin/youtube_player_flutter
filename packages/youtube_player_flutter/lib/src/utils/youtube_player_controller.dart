@@ -155,10 +155,14 @@ class YoutubePlayerController extends ValueNotifier<YoutubePlayerValue> {
   /// Composes all the flags required to control the player.
   final YoutubePlayerFlags flags;
 
+  /// On toggle Fullscreen function
+  final Function(bool isFullscreen)? onToggleFullscreen;
+
   /// Creates [YoutubePlayerController].
   YoutubePlayerController({
     required this.initialVideoId,
     this.flags = const YoutubePlayerFlags(),
+    this.onToggleFullscreen,
   }) : super(YoutubePlayerValue());
 
   /// Finds [YoutubePlayerController] in the provided context.
@@ -282,6 +286,9 @@ class YoutubePlayerController extends ValueNotifier<YoutubePlayerValue> {
       ]);
     } else {
       SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    }
+    if (onToggleFullscreen != null) {
+      onToggleFullscreen!(value.isFullScreen);
     }
   }
 
